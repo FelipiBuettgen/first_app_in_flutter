@@ -53,7 +53,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
     setState(() {
       _perguntaSelec++;
       totalpontos += pontos;
-      print(totalpontos);
+    });
+  }
+
+  void _reinit() {
+    setState(() {
+      _perguntaSelec = 0;
+      totalpontos = 0;
     });
   }
 
@@ -69,7 +75,10 @@ class _PerguntaAppState extends State<PerguntaApp> {
                 perguntaselec: _perguntaSelec,
                 perguntas: _perguntas,
                 responder: _responder)
-            : Resultado(pontuacao: totalpontos),
+            : Resultado(
+                pontuacao: totalpontos,
+                resetqs: _reinit,
+              ),
       ),
     );
   }

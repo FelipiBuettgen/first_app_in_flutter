@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class Resultado extends StatelessWidget {
   final int pontuacao;
-  const Resultado({super.key, required this.pontuacao});
+  final void Function() resetqs;
+  const Resultado({super.key, required this.pontuacao, required this.resetqs});
   String get resultado {
     if (pontuacao < 15) {
       return "Ok!";
@@ -17,20 +18,39 @@ class Resultado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        width: 150,
-        height: 150,
-        decoration: BoxDecoration(
-          border: Border.all(),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: Card(
+            elevation: 10,
+            borderOnForeground: true,
+            margin: EdgeInsets.fromLTRB(60, 0, 60, 0),
+            color: Color.fromARGB(255, 0, 94, 255),
+            child: Container(
+              height: 50,
+              alignment: Alignment.center,
+              child: Text(
+                resultado,
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+          ),
         ),
-        alignment: Alignment.center,
-        child: Text(
-          resultado,
-          style: TextStyle(fontSize: 25),
-        ),
-      ),
+        ElevatedButton(
+            onPressed: resetqs,
+            child: Text(
+              'Resetar!',
+              style: TextStyle(fontSize: 25, color: Colors.green.shade900),
+            ),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                    const Color.fromARGB(255, 64, 177, 74)),
+                elevation: MaterialStateProperty.all(5)))
+      ],
     );
   }
 }
